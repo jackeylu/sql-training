@@ -50,20 +50,24 @@ COPY --from=builder /opt/sql-udfs/target/sql-training-udfs-*.jar /opt/sql-client
 COPY --from=builder /opt/data-producer/target/sql-training-data-producer-*.jar /opt/data/data-producer.jar
 
 # Download connector libraries
-RUN wget -P /opt/sql-client/lib/ https://repo.maven.apache.org/maven2/org/apache/flink/flink-json/${FLINK_VERSION}/flink-json-${FLINK_VERSION}.jar; \
-    wget -P /opt/sql-client/lib/ https://repo.maven.apache.org/maven2/org/apache/flink/flink-sql-connector-kafka_2.11/${FLINK_VERSION}/flink-sql-connector-kafka_2.11-${FLINK_VERSION}.jar; \
-    wget -P /opt/sql-client/lib/ https://repo.maven.apache.org/maven2/org/apache/flink/flink-connector-filesystem_2.11/${FLINK_VERSION}/flink-connector-filesystem_2.11-${FLINK_VERSION}.jar; \
-    wget -P /opt/flink/lib https://repo.maven.apache.org/maven2/org/apache/flink/flink-shaded-hadoop-2-uber/2.7.5-8.0/flink-shaded-hadoop-2-uber-2.7.5-8.0.jar; \
-    wget -P /opt/sql-client/lib/ https://repo.maven.apache.org/maven2/org/apache/flink/flink-connector-jdbc_2.11/${FLINK_VERSION}/flink-connector-jdbc_2.11-${FLINK_VERSION}.jar; \
-    wget -P /opt/sql-client/lib/ https://repo.maven.apache.org/maven2/mysql/mysql-connector-java/8.0.19/mysql-connector-java-8.0.19.jar; \
+RUN wget -P /opt/sql-client/lib/ http://maven.aliyun.com/nexus/content/groups/public/org/apache/flink/flink-json/${FLINK_VERSION}/flink-json-${FLINK_VERSION}.jar; \
+    wget -P /opt/sql-client/lib/ http://maven.aliyun.com/nexus/content/groups/public/org/apache/flink/flink-sql-connector-kafka_2.11/${FLINK_VERSION}/flink-sql-connector-kafka_2.11-${FLINK_VERSION}.jar; \
+    wget -P /opt/sql-client/lib/ http://maven.aliyun.com/nexus/content/groups/public/org/apache/flink/flink-connector-filesystem_2.11/${FLINK_VERSION}/flink-connector-filesystem_2.11-${FLINK_VERSION}.jar; \
+    wget -P /opt/flink/lib http://maven.aliyun.com/nexus/content/groups/public/org/apache/flink/flink-shaded-hadoop-2-uber/2.7.5-8.0/flink-shaded-hadoop-2-uber-2.7.5-8.0.jar; \
+    wget -P /opt/sql-client/lib/ http://maven.aliyun.com/nexus/content/groups/public/org/apache/flink/flink-connector-jdbc_2.11/${FLINK_VERSION}/flink-connector-jdbc_2.11-${FLINK_VERSION}.jar; \
+    wget -P /opt/sql-client/lib/ http://maven.aliyun.com/nexus/content/groups/public/mysql/mysql-connector-java/8.0.19/mysql-connector-java-8.0.19.jar; \
 # Create data folders
     mkdir -p /opt/data; \
-    mkdir -p /opt/data/stream; \
+    mkdir -p /opt/data/stream; 
 # Download data files
-    wget -O /opt/data/driverChanges.txt.gz 'https://drive.google.com/uc?export=download&id=1pf4tfv-YpoVQ9_O0948M8oXeCfVH-0MH'; \
-    wget -O /opt/data/fares.txt.gz 'https://drive.google.com/uc?export=download&id=1SriiwcIdMvY7uJsWSY4Hhh32iO3F4ND2'; \
-    wget -O /opt/data/rides.txt.gz 'https://drive.google.com/uc?export=download&id=1gY8W07OFvB7_4lHlAyingM4WQzs0_8lT';
+    #wget -O /opt/data/driverChanges.txt.gz 'https://drive.google.com/uc?export=download&id=1pf4tfv-YpoVQ9_O0948M8oXeCfVH-0MH'; \
+    #wget -O /opt/data/fares.txt.gz 'https://drive.google.com/uc?export=download&id=1SriiwcIdMvY7uJsWSY4Hhh32iO3F4ND2'; \
+    #wget -O /opt/data/rides.txt.gz 'https://drive.google.com/uc?export=download&id=1gY8W07OFvB7_4lHlAyingM4WQzs0_8lT';
 
+# Copy the data
+COPY data/rides.txt.tgz /opt/data/rides.txt.tgz
+COPY data/fares.txt.tgz /opt/data/fares.txt.tgz
+COPY data/driverChanges.txt.tgz /opt/data/driverChanges.txt.tgz
 # Copy configuration
 COPY conf/* /opt/flink/conf/
 

@@ -23,7 +23,7 @@ FROM flink:1.11.1-scala_2.11
 # move and download dependencies
 RUN mkdir /opt/flink/plugins/s3; \
     mv /opt/flink/opt/flink-s3-fs-hadoop-1.11.1.jar /opt/flink/plugins/s3; \
-    wget -P /opt/flink/lib https://repo.maven.apache.org/maven2/org/apache/flink/flink-shaded-hadoop-2-uber/2.7.5-8.0/flink-shaded-hadoop-2-uber-2.7.5-8.0.jar;
+    wget -P /opt/flink/lib http://maven.aliyun.com/nexus/content/groups/public/org/apache/flink/flink-shaded-hadoop-2-uber/2.7.5-8.0/flink-shaded-hadoop-2-uber-2.7.5-8.0.jar;
 
 # adjust configuration
 RUN echo "s3.access-key: flink-sql" >> /opt/flink/conf/flink-conf.yaml; \

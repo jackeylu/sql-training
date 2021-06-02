@@ -58,9 +58,9 @@ public class TaxiRecordProducer {
                         case "file":
                             String basePath = args[argOffset++];
                             try {
-                                rideSupplier = new FileReader(basePath + "/rides.txt.gz", Ride.class);
-                                fareSupplier = new FileReader(basePath + "/fares.txt.gz", Fare.class);
-                                driverChangeSupplier = new FileReader(basePath + "/driverChanges.txt.gz", DriverChange.class);
+                                rideSupplier = new FileReader(basePath + "/rides.txt.tgz", Ride.class);
+                                fareSupplier = new FileReader(basePath + "/fares.txt.tgz", Fare.class);
+                                driverChangeSupplier = new FileReader(basePath + "/driverChanges.txt.tgz", DriverChange.class);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
